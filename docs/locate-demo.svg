@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="484" viewBox="0 0 920 484" role="img" aria-label="usb_quickprobe.py --locate 运行输出：标称 250 GB 的 U 盘真实容量 63.54 GB">
+  <defs>
+    <clipPath id="win">
+      <rect x="0" y="0" width="920" height="484" rx="10" ry="10"/>
+    </clipPath>
+    <style>
+      .t { font-family: "Cascadia Mono","Consolas","SF Mono","Menlo","Microsoft YaHei","PingFang SC",monospace; font-size: 15px; }
+      .dim   { fill: #8b8b8b; }
+      .fg    { fill: #d6d6d6; }
+      .ok    { fill: #4ec9b0; font-weight: 600; }
+      .warn  { fill: #f48771; }
+      .sep   { fill: #5f5f5f; }
+      .num   { fill: #dcdcaa; }
+    </style>
+  </defs>
+
+  <!-- 窗口 -->
+  <g clip-path="url(#win)">
+    <rect width="920" height="484" fill="#1b1b1b"/>
+    <rect width="920" height="34" fill="#2d2d2d"/>
+    <circle cx="22" cy="17" r="6" fill="#ff5f56"/>
+    <circle cx="42" cy="17" r="6" fill="#ffbd2e"/>
+    <circle cx="62" cy="17" r="6" fill="#27c93f"/>
+    <text class="t" x="440" y="22" fill="#9a9a9a" text-anchor="middle">Windows PowerShell — 管理员</text>
+
+    <!-- 正文 -->
+    <text class="t fg"   x="26" y="66">PS C:\&gt; python usb_quickprobe.py --letter D --locate --yes</text>
+
+    <text class="t fg"   x="26" y="110">=== 定位真实容量边界 Disk 2 ===</text>
+    <text class="t fg"   x="26" y="132">  设备    : Flash Disk 3.0  (USB)</text>
+    <text class="t fg"   x="26" y="154">  上报容量: 250.00 GiB</text>
+    <text class="t fg"   x="26" y="176">  起始 8,192 测试 ... 可读写</text>
+    <text class="t fg"   x="26" y="198">  末端 65,535,999 测试 ... <tspan class="warn">异常（符合虚标特征）</tspan></text>
+
+    <text class="t sep"  x="26" y="242">  ============================================================</text>
+    <text class="t fg"   x="26" y="264">  最后可正常读写的扇区: LBA 15,513,443</text>
+    <text class="t fg"   x="26" y="286">  第一个失效的扇区    : LBA 15,513,444</text>
+    <text class="t ok"   x="26" y="308">  真实容量            : 63,543,066,624 B</text>
+    <text class="t ok"   x="26" y="330">                      = 63.54 GB (十进制)</text>
+    <text class="t ok"   x="26" y="352">                      = 59.18 GiB</text>
+    <text class="t fg"   x="26" y="374">  约为标称容量的      : <tspan class="warn">23.67%</tspan></text>
+    <text class="t sep"  x="26" y="396">  ============================================================</text>
+
+    <text class="t dim"  x="26" y="440">PS C:\&gt; <tspan fill="#d6d6d6">_</tspan></text>
+  </g>
+</svg>
