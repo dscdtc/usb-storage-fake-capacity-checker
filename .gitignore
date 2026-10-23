@@ -11,6 +11,9 @@ usb_quickprobe_*.json
 usb_locate_*.json
 *.bin
 
+# Build output (python build_xhs.py 生成小红书小工具包，不入库)
+dist/
+
 # Editor / OS
 .vscode/
 .idea/

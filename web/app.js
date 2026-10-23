@@ -625,6 +625,20 @@ function drawShareCard() {
   ctx.fillText('十分钟测完，别再相信包装上的数字', pad, H - 82);
 
   $('#shareWrap').hidden = false;
+
+  // 手机上「下载」这条路口往往不通（a.download 在多数 App 内置浏览器里无效），
+  // 改用 <img> 呈现，长按即可保存到相册。
+  const img = $('#shareImg');
+  if (img) {
+    img.src = cv.toDataURL('image/png');
+    const touch = (window.matchMedia && matchMedia('(hover: none)').matches) || 'ontouchstart' in window;
+    if (touch) {
+      img.hidden = false;
+      cv.hidden = true;
+      $('#shareHint').hidden = false;
+      $('#shareDl').textContent = '保存图片';
+    }
+  }
 }
 
 $('#shareDl').addEventListener('click', () => {

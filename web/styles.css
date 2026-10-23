@@ -318,6 +318,12 @@ td:first-child { font-weight: 600; }
   width: 100%; max-width: 380px; height: auto; border-radius: 14px;
   border: 1px solid var(--line); box-shadow: var(--shadow);
 }
+.share-img {
+  width: 100%; max-width: 380px; height: auto; border-radius: 14px;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+  -webkit-touch-callout: default; user-select: auto;
+}
+.share-hint { color: var(--ink-3); }
 .share-actions { display: flex; gap: 10px; }
 
 /* ---------- 页脚 ---------- */
@@ -336,9 +342,25 @@ td:first-child { font-weight: 600; }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 28px; padding-top: 40px; }
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .nav a:not(#repoLink) { display: none; }
-  .nav { gap: 0; }
   .big-num { font-size: 28px; }
+
+  /* 手机上页面长达数千像素，导航必须留着，否则只能一路盲滑。
+     收成一行可横向滑动的标签条：最后一个标签露出半截，就是「还能滑」的提示。 */
+  .topbar-inner { height: 54px; gap: 8px; }
+  .brand-badge { display: none; }
+  .brand { flex: 0 0 auto; }
+  .brand-name { font-size: 14.5px; white-space: nowrap; }
+  .brand-mark { width: 24px; height: 24px; font-size: 13px; border-radius: 7px; }
+  .nav {
+    flex: 1 1 auto; min-width: 0; justify-content: flex-start; gap: 2px;
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; white-space: nowrap; font-size: 12.5px; padding: 5px 7px; }
+  /* 外链在小程序/App 容器里跳不出去，移动端只留页脚一处入口 */
+  .nav-ghost { display: none; }
 }
 @media (max-width: 520px) {
   .wrap { width: calc(100% - 28px); }
@@ -347,6 +369,7 @@ td:first-child { font-weight: 600; }
   .hero h1 { font-size: 27px; }
   .btn-lg { width: 100%; }
   .tabs { font-size: 12px; }
+  .section { padding-top: 34px; scroll-margin-top: 62px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
