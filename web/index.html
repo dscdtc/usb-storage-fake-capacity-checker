@@ -150,11 +150,45 @@
       <span class="sec-num">02</span>
       <div>
         <h2>取证：拿到实测数据</h2>
-        <p>网页跑不了裸扇区读写（浏览器没有这个权限），所以这一步交给仓库里的命令行工具，只要几十秒。</p>
+        <p>网页跑不了裸扇区读写（浏览器没有这个权限），读盘的是你本机上一段开源 Python 脚本。先把工具准备好，之后每次检测只要几十秒。</p>
       </div>
     </div>
 
     <div class="card">
+      <h3 class="card-title">第 0 步 · 把工具拿到本机（只需做一次）</h3>
+      <div class="row-2 mb">
+        <a class="btn btn-primary btn-sm" href="https://github.com/dscdtc/usb-storage-fake-capacity-checker" target="_blank" rel="noopener">在 GitHub 打开项目</a>
+        <a class="btn btn-sm" href="https://github.com/dscdtc/usb-storage-fake-capacity-checker/archive/refs/heads/main.zip" target="_blank" rel="noopener">下载 ZIP（免 git）</a>
+        <span class="micro">MIT 协议 · 纯 Python 标准库 · 不用 pip install</span>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <b>下载并解压到任意目录</b>，例如 <code>D:\tools\usb-check</code>。<br>
+          装了 git 就用：<code>git clone https://github.com/dscdtc/usb-storage-fake-capacity-checker.git</code><br>
+          没装 git 就用上面的「下载 ZIP」，解压后同样可用，效果没有区别。
+        </li>
+        <li>
+          <b>确认本机有 Python 3.9 或更高版本</b>：在终端输入 <code>python --version</code>。
+          提示「不是内部或外部命令」说明没装，去 python.org 下载安装，<em>安装时记得勾选 Add Python to PATH</em>。
+        </li>
+        <li>
+          <b>用管理员身份开一个终端</b>（裸扇区访问必须提权）：右键点击开始菜单 →「终端(管理员)」
+          或「Windows PowerShell(管理员)」。
+        </li>
+        <li>
+          <b>进入项目目录</b>：<code>cd D:\tools\usb-check</code>，把路径换成你实际解压的位置。
+          下面生成的所有命令都要<strong>在这个目录里</strong>执行。
+        </li>
+        <li>
+          <b>自检一下环境</b>：执行 <code>python usb_quickprobe.py --help</code>。
+          能打印出参数说明就说明工具已就绪；报「找不到文件」说明当前目录不对，回到上一步。
+        </li>
+      </ol>
+    </div>
+
+    <div class="card mt">
+      <h3 class="card-title">第 1 步 · 在管理员终端里粘贴执行</h3>
       <div class="grid-3 tight">
         <label class="field">
           <span class="label">盘符</span>
@@ -182,6 +216,15 @@
       <div class="hint-row">
         <span class="hint">需要<strong>管理员终端</strong>（裸扇区访问）。盘符会闪一下再回来，属正常。</span>
         <span class="hint">不确定磁盘号？先跑 <code>Get-Disk</code>。</span>
+        <span class="hint">看效果不想写盘？加 <code>--dry-run</code> 只打印计划。</span>
+      </div>
+
+      <div class="alert alert-info mt">
+        <strong>第 2 步 · 跑完会得到什么：</strong>项目目录里会多出一个
+        <code>usb_quickprobe_&lt;盘符&gt;.json</code>（例如检测 E 盘就是 <code>usb_quickprobe_E.json</code>）。
+        用记事本打开、<kbd>Ctrl+A</kbd> 全选复制，
+        回到第 ③ 步选「粘贴 CLI 报告」贴进去 —— 真实容量就是在这里算出来的。
+        这个文件也是退货举证时最有说服力的原始记录，别急着删。
       </div>
 
       <details class="fold">
@@ -260,7 +303,7 @@
           <div class="row-2">
             <button id="cReadFile" class="btn btn-sm">选择 JSON 文件</button>
             <input id="cFile" type="file" accept=".json,application/json" hidden>
-            <span class="micro">两个脚本生成的报告都认（抽样 / 二分）。</span>
+            <span class="micro">报告是第 ② 步跑完后生成在项目目录里的文件，两个脚本的格式都认（抽样 / 二分）。</span>
           </div>
         </div>
 
@@ -308,7 +351,7 @@
       <span class="sec-num">04</span>
       <div>
         <h2>恢复：让盘变得小而可靠</h2>
-        <p>把分区缩到真实容量以内，盘就不会再骗你了。</p>
+        <p>把分区缩到真实容量以内，盘就不会再骗你了。有两条路：手动跑 diskpart，或者让仓库脚本代劳——两者的效果一样，后者多一层安全检查。</p>
       </div>
     </div>
 
@@ -319,7 +362,8 @@
     </div>
 
     <div class="card">
-      <h3 class="card-title">将执行的 diskpart 脚本（由第 ③ 步的结果自动生成）</h3>
+      <h3 class="card-title">做法 A · 手动执行 diskpart（不需要下载任何东西）</h3>
+      <p class="prose-sm">下面是第 ③ 步按你算出的真实容量自动生成的脚本。<strong>逐行核对</strong>，尤其确认 <code>select disk</code> 后面的数字是你的目标盘。</p>
       <div class="codeblock">
         <button class="copy-btn" data-copy="rScript">复制</button>
         <pre id="rScript">等待第 ③ 步的计算结果…</pre>
@@ -329,11 +373,33 @@
         <span class="micro" id="rMeta">建议分区大小将按真实容量 × 98% 计算</span>
       </div>
 
-      <h3 class="card-title mt">或者直接让脚本代劳</h3>
+      <ol class="steps mt">
+        <li>点「下载 .txt」，把脚本存成 <code>C:\restore.txt</code>（放桌面也行，记下完整路径）。</li>
+        <li>管理员终端里执行 <code>diskpart /s C:\restore.txt</code>，它会逐条跑完脚本里的命令。</li>
+        <li>没有管理员终端？在开始菜单搜索 <code>diskpart</code>，右键「以管理员身份运行」，再逐行粘贴脚本内容也可以。</li>
+      </ol>
+      <p class="note">diskpart 是 Windows 自带命令，这一条路<strong>不需要</strong>第 0 步的 Python 项目。</p>
+    </div>
+
+    <div class="card mt">
+      <h3 class="card-title">做法 B · 用仓库脚本代劳（推荐，自带安全检查）</h3>
+      <p class="prose-sm">
+        用的是第 0 步下载的另一个脚本 <code>usb_fake_capacity.py</code>。它会把同样的 diskpart 脚本生成好、执行掉，
+        并且在下手前替你拦住三种危险操作：非 USB 磁盘、分区大小超过上报容量、FAT32 分区超过 32 GB。
+      </p>
       <div class="codeblock">
         <button class="copy-btn" data-copy="rCmd">复制</button>
         <pre id="rCmd">等待第 ③ 步的计算结果…</pre>
       </div>
+      <div class="hint-row">
+        <span class="hint">在<strong>项目目录</strong>里运行，路径同第 0 步。</span>
+        <span class="hint">第一行带 <code>--dry-run</code>，只打印不执行。</span>
+        <span class="hint">确认无误后，再单独执行第二行。</span>
+      </div>
+      <p class="note">
+        还没下载项目？<a href="https://github.com/dscdtc/usb-storage-fake-capacity-checker" target="_blank" rel="noopener">去 GitHub 拿</a>
+        ，或回到<a href="#measure">第 ② 步</a>看四个准备步骤。
+      </p>
     </div>
 
     <div class="grid-2 mt">
