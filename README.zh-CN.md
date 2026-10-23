@@ -9,6 +9,7 @@
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
+[![在线体验](https://img.shields.io/badge/demo-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C-4f46e5)](https://usb-health-check.app.workbuddy.host/)
 
 ---
 
@@ -34,6 +35,21 @@
 | `usb_fake_capacity.py` | 顺序写满 + 回读校验（h2testw 式），并可重新分区 | 40 ~ 80 小时 | 全盘容量 |
 
 用 `usb_quickprobe.py` 判断盘**是否虚标、真实多大**；只有在需要逐字节证明时才用 `usb_fake_capacity.py` 的全量校验，它真正的价值在 `restore` 子命令。
+
+### 网页版 —— 不用装东西，也不用开终端
+
+`web/` 是一个零依赖的单页应用，把整个流程搬进浏览器：
+风险速诊 → 取证命令生成 → **真实容量计算** → 恢复方案 → 可分享的结果卡片。
+
+![U盘体检台 网页版](docs/shot-home.png)
+
+直接打开 `web/index.html` 即可，也可以访问在线版：**<https://usb-health-check.app.workbuddy.host/>**
+
+它**不能**读裸扇区——浏览器没有这个能力，假装能就是骗人。所以网页做的是它擅长的事：解析命令行工具产出的 JSON 报告，在浏览器里跑同一套容量数学（二分区间、抽样的 Wilson 95% 区间），并把计算结果直接变成可执行的 `diskpart` 脚本和 `restore` 命令。
+
+第 ④ 步把一次测量变成可以直接执行的东西：
+
+![生成的 diskpart 脚本与恢复命令](docs/shot-restore.png)
 
 ---
 
@@ -88,6 +104,11 @@ while hi - lo > 1:
 ---
 
 ## 快速开始
+
+```bash
+git clone https://github.com/dscdtc/usb-storage-fake-capacity-checker.git
+cd usb-storage-fake-capacity-checker
+```
 
 ```bash
 # 只读识别：这是什么盘，设备名可疑吗？

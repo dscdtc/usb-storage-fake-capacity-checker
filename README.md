@@ -9,6 +9,7 @@ No dependencies. No installation. Pure Python standard library.
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
+[![Live demo](https://img.shields.io/badge/demo-online-4f46e5)](https://usb-health-check.app.workbuddy.host/)
 
 ---
 
@@ -34,6 +35,21 @@ A real 2 TB USB stick cannot be sold for $10. If your drive reports a suspicious
 | `usb_fake_capacity.py` | Sequential full-disk write + verify (h2testw-style), then repartition to the real size | 40 – 80 hours | Full capacity |
 
 Use `usb_quickprobe.py` to find out **whether** and **where** the drive lies. Use `usb_fake_capacity.py` only when you need a byte-for-byte proof — its real value is the `restore` subcommand.
+
+### Web version — no install, no terminal
+
+`web/` is a zero-dependency single-page app covering the whole workflow in a browser:
+risk triage → command generator → **real-capacity calculator** → restore plan → shareable result card.
+
+![U盘体检台 web app](docs/shot-home.png)
+
+Open `web/index.html` directly, or use the hosted version: **<https://usb-health-check.app.workbuddy.host/>**
+
+It cannot read raw sectors — browsers have no such API, and pretending otherwise would be dishonest. So the page does what a page can do well: it parses the JSON reports the CLI produces, runs the same capacity math in your browser (binary-search bounds, Wilson 95% interval for sampling), and emits the exact `diskpart` script and `restore` command for your measured value.
+
+The ④ restore section turns a measurement into something executable:
+
+![Generated diskpart script and restore command](docs/shot-restore.png)
 
 ---
 
@@ -88,6 +104,11 @@ Measured on the same stick: **263 MiB/s cached vs 20 MiB/s direct** — a 13× d
 ---
 
 ## Quick start
+
+```bash
+git clone https://github.com/dscdtc/usb-storage-fake-capacity-checker.git
+cd usb-storage-fake-capacity-checker
+```
 
 ```bash
 # Read-only: what is this drive, and does the name look suspicious?

@@ -17,3 +17,8 @@ usb_locate_*.json
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local tooling / internal workspace data
+.workbuddy/
+*.genie
+.wbapp_*.genie

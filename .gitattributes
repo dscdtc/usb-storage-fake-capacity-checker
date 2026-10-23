@@ -1,0 +1,9 @@
+# Normalize line endings to LF in the repo and in working copies,
+# so Windows and Linux clones produce identical bytes.
+* text=auto eol=lf
+
+# Binaries — never touch
+*.png binary
+*.jpg binary
+*.ico binary
+*.zip binary
