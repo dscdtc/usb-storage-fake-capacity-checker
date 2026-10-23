@@ -9,7 +9,7 @@ No dependencies. No installation. Pure Python standard library.
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
-[![Live demo](https://img.shields.io/badge/demo-online-4f46e5)](https://usb-health-check.app.workbuddy.host/)
+[![Live demo](https://img.shields.io/badge/demo-online-4f46e5)](https://usb-health-check.app.workbuddy.host/?sharecode=B63UHQ3HVT)
 
 ---
 
@@ -43,7 +43,7 @@ risk triage → command generator → **real-capacity calculator** → restore p
 
 ![U盘体检台 web app](docs/shot-home.png)
 
-Open `web/index.html` directly, or use the hosted version: **<https://usb-health-check.app.workbuddy.host/>**
+Open `web/index.html` directly, or use the hosted version: **<https://usb-health-check.app.workbuddy.host/?sharecode=B63UHQ3HVT>**
 
 It cannot read raw sectors — browsers have no such API, and pretending otherwise would be dishonest. So the page does what a page can do well: it parses the JSON reports the CLI produces, runs the same capacity math in your browser (binary-search bounds, Wilson 95% interval for sampling), and emits the exact `diskpart` script and `restore` command for your measured value.
 

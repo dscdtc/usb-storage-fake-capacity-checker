@@ -9,7 +9,7 @@
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
-[![在线体验](https://img.shields.io/badge/demo-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C-4f46e5)](https://usb-health-check.app.workbuddy.host/)
+[![在线体验](https://img.shields.io/badge/demo-%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C-4f46e5)](https://usb-health-check.app.workbuddy.host/?sharecode=B63UHQ3HVT)
 
 ---
 
@@ -43,7 +43,7 @@
 
 ![U盘体检台 网页版](docs/shot-home.png)
 
-直接打开 `web/index.html` 即可，也可以访问在线版：**<https://usb-health-check.app.workbuddy.host/>**
+直接打开 `web/index.html` 即可，也可以访问在线版：**<https://usb-health-check.app.workbuddy.host/?sharecode=B63UHQ3HVT>**
 
 它**不能**读裸扇区——浏览器没有这个能力，假装能就是骗人。所以网页做的是它擅长的事：解析命令行工具产出的 JSON 报告，在浏览器里跑同一套容量数学（二分区间、抽样的 Wilson 95% 区间），并把计算结果直接变成可执行的 `diskpart` 脚本和 `restore` 命令。
 
